@@ -20,28 +20,21 @@ import retrofit.Retrofit;
 
 public class AudioSFactory {
 
-    private Context mContext;
-
     private Gson mGson;
     private OkHttpClient mHttpClient;
 
     private final List<Converter.Factory> mConverters = new ArrayList<>();
 
-    public AudioSFactory(){
+    public AudioSFactory(Context ctx){
         //Default configurations
         mGson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
                 .create();
         mHttpClient = new OkHttpClient();
 
-        CookieManager cookieManager = new CookieManager(new PersistentCookieStore(mContext),
+        CookieManager cookieManager = new CookieManager(new PersistentCookieStore(ctx),
                                         CookiePolicy.ACCEPT_ALL);
         mHttpClient.setCookieHandler(cookieManager);
-    }
-
-    public AudioSFactory setContext(Context ctx){
-        mContext = ctx;
-        return this;
     }
 
     public AudioSFactory setGson(Gson gson){
